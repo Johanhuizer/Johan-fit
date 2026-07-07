@@ -41,7 +41,7 @@ export default function ProfileForm({ onSave }: Props) {
       <input
         type="number"
         className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700 mb-4"
-        placeholder="97"
+        placeholder="Vul je gewicht in"
         value={weight}
         onChange={(e) => setWeight(e.target.value)}
       />
