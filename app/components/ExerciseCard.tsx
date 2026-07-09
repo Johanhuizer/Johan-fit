@@ -44,8 +44,9 @@ type ExerciseCardProps = {
 
   onToggleMenu: () => void;
   onEdit: () => void;
+  onSwap: () => void;
   onHistory: () => void;
-
+  onDelete: () => void;
   onUpdateSet: (
     setIndex: number,
     field: "weight" | "reps",
@@ -73,7 +74,9 @@ export function ExerciseCard({
   menuOpen,
   onToggleMenu,
   onEdit,
+  onSwap,
   onHistory,
+  onDelete,
   onUpdateSet,
   onUpdateCoachSet,
   onCompleteCoachSet,
@@ -135,7 +138,13 @@ export function ExerciseCard({
               >
                 📅 Historie bekijken
               </button>
-
+<button
+  type="button"
+  onClick={onDelete}
+  className="w-full border-t border-zinc-800 px-4 py-4 text-left text-red-400 hover:bg-zinc-800"
+>
+  🗑️ Oefening verwijderen
+</button>
             </div>
           )}
 
@@ -183,13 +192,12 @@ export function ExerciseCard({
           </button>
 
           <button
-            type="button"
-            onClick={onEdit}
-            className="rounded-xl border border-zinc-800 bg-zinc-900 px-3 py-3 text-sm font-medium"
-          >
-            ⇄ Swap
-          </button>
-
+  type="button"
+  onClick={onSwap}
+  className="rounded-xl border border-zinc-800 bg-zinc-900 px-3 py-3 text-sm font-medium"
+>
+  ⇄ Swap
+</button>
           <button
             type="button"
             onClick={onHistory}

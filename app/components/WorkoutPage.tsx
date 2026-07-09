@@ -15,6 +15,10 @@ import {
 } from "./ExerciseCard";
 
 import {
+  ExercisePicker,
+} from "./ExercisePicker";
+
+import {
   ExerciseHistory,
 } from "./ExerciseHistory";
 
@@ -358,7 +362,28 @@ export default function WorkoutPage({
       string | null
     >(null);
 
+    const [
+  exercisePickerOpen,
+  setExercisePickerOpen,
+] = useState(false);
 
+const [
+  swapExerciseId,
+  setSwapExerciseId,
+] = useState<string | null>(
+  null
+);
+const [
+  pendingSwapExercise,
+  setPendingSwapExercise,
+] = useState<Exercise | null>(
+  null
+);
+
+const [
+  swapChoiceOpen,
+  setSwapChoiceOpen,
+] = useState(false);
   const [
     historyExerciseId,
     setHistoryExerciseId,
@@ -1141,7 +1166,45 @@ loadedWorkout = {
     );
   }
 
+function deleteExercise(
+  exercise: Exercise
+) {
+  const confirmed =
+    window.confirm(
+      `Weet je zeker dat je ${exercise.name} uit deze training wilt verwijderen?`
+    );
 
+  if (!confirmed) {
+    return;
+  }
+
+  setWorkout(
+    (currentWorkout) => {
+      const updatedWorkout: WorkoutPlan = {
+        ...currentWorkout,
+
+        exercises:
+          currentWorkout.exercises.filter(
+            (item) =>
+              item.id !== exercise.id
+          ),
+      };
+
+      localStorage.setItem(
+        storageKey,
+        JSON.stringify(updatedWorkout)
+      );
+
+      return updatedWorkout;
+    }
+  );
+
+  setOpenMenuId(null);
+
+  setMessage(
+    `${exercise.name} verwijderd ✓`
+  );
+}
   function changeHistory(
     exerciseId: string,
     newHistory:
@@ -1519,6 +1582,7 @@ loadedWorkout = {
     setMessage(
       `${workout.name} afgerond en opgeslagen ✓`
     );
+    router.push("/");
   }
 
 
@@ -1657,7 +1721,17 @@ loadedWorkout = {
         </div>
       )}
 
-
+<div className="mt-6">
+  <button
+    type="button"
+    onClick={() => {
+      setExercisePickerOpen(true);
+    }}
+    className="w-full rounded-2xl border border-green-800 bg-green-950/40 p-4 font-bold text-green-400 hover:bg-green-950"
+  >
+    ＋ Oefening toevoegen
+  </button>
+</div>
       <div className="space-y-6">
 
         {workout.exercises.map(
@@ -1711,7 +1785,15 @@ loadedWorkout = {
                   null
                 );
               }}
+onSwap={() => {
+  setSwapExerciseId(
+    exercise.id
+  );
 
+  setOpenMenuId(
+    null
+  );
+}}
               onHistory={() => {
                 setHistoryExerciseId(
                   exercise.id
@@ -1722,6 +1804,11 @@ loadedWorkout = {
                 );
               }}
 
+              onDelete={() => {
+  deleteExercise(
+    exercise
+  );
+}}
               onUpdateSet={(
                 setIndex,
                 field,
@@ -1796,8 +1883,381 @@ loadedWorkout = {
         </button>
 
       </div>
+{exercisePickerOpen && (
+  <ExercisePicker
+    title="Oefening toevoegen"
+    onClose={() => {
+      setExercisePickerOpen(false);
+    }}
+    onSelect={(libraryExercise) => {
+      const newExercise: Exercise = {
+        id: `${libraryExercise.id}-${crypto.randomUUID()}`,
+        name: libraryExercise.name,
+        muscle: libraryExercise.muscle,
+        targetSets: libraryExercise.targetSets,
+        weightStep:
+          libraryExercise.weightStep ?? 2.5,
+        history: [],
+      };
+
+      setWorkout((currentWorkout) => {
+        const updatedWorkout: WorkoutPlan = {
+          ...currentWorkout,
+
+          exercises: [
+            ...currentWorkout.exercises,
+            newExercise,
+          ],
+        };
+
+        localStorage.setItem(
+          storageKey,
+          JSON.stringify(updatedWorkout)
+        );
+
+        return updatedWorkout;
+      });
+
+      setExercisePickerOpen(false);
+
+      setMessage(
+        `${libraryExercise.name} toegevoegd ✓`
+      );
+    }}
+  />
+)}
+{swapExerciseId !== null &&
+  !swapChoiceOpen && (
+    <ExercisePicker
+      title="Oefening vervangen"
+
+      onClose={() => {
+        setSwapExerciseId(
+          null
+        );
+
+        setPendingSwapExercise(
+          null
+        );
+      }}
+
+      onSelect={(libraryExercise) => {
+        const replacementExercise:
+          Exercise = {
+            id:
+              libraryExercise.id,
+
+            name:
+              libraryExercise.name,
+
+            muscle:
+              libraryExercise.muscle,
+
+            targetSets:
+              libraryExercise.targetSets,
+
+            weightStep:
+              libraryExercise.weightStep ??
+              2.5,
+
+            history: [],
+          };
+
+        setPendingSwapExercise(
+          replacementExercise
+        );
+
+        setSwapChoiceOpen(
+          true
+        );
+      }}
+    />
+  )}
 
 
+{swapChoiceOpen &&
+  swapExerciseId !== null &&
+  pendingSwapExercise !== null && (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 p-4">
+
+      <div className="w-full max-w-md rounded-3xl border border-zinc-700 bg-zinc-900 p-6">
+
+        <p className="text-sm font-bold text-green-500">
+          OEFENING WISSELEN
+        </p>
+
+        <h2 className="mt-2 text-2xl font-bold">
+          Hoe wil je wisselen?
+        </h2>
+
+        <p className="mt-2 text-zinc-400">
+          {pendingSwapExercise.name}
+        </p>
+
+
+        <div className="mt-6 space-y-3">
+
+          <button
+            type="button"
+            onClick={() => {
+              const oldExercise =
+                workout.exercises.find(
+                  (exercise) =>
+                    exercise.id ===
+                    swapExerciseId
+                );
+
+              if (!oldExercise) {
+                return;
+              }
+
+              setWorkout(
+                (currentWorkout) => ({
+                  ...currentWorkout,
+
+                  exercises:
+                    currentWorkout.exercises.map(
+                      (exercise) =>
+                        exercise.id ===
+                        swapExerciseId
+                          ? pendingSwapExercise
+                          : exercise
+                    ),
+                })
+              );
+
+              setCurrentSets(
+                (previous) => {
+                  const updated = {
+                    ...previous,
+                  };
+
+                  delete updated[
+                    oldExercise.id
+                  ];
+
+                  return updated;
+                }
+              );
+
+              setCurrentSessionIds(
+                (previous) => {
+                  const updated = {
+                    ...previous,
+                  };
+
+                  delete updated[
+                    oldExercise.id
+                  ];
+
+                  return updated;
+                }
+              );
+
+              setCoachSetsByExercise(
+                (previous) => {
+                  const updated = {
+                    ...previous,
+                  };
+
+                  delete updated[
+                    oldExercise.id
+                  ];
+
+                  return updated;
+                }
+              );
+
+              setCoachMessages(
+                (previous) => {
+                  const updated = {
+                    ...previous,
+                  };
+
+                  delete updated[
+                    oldExercise.id
+                  ];
+
+                  return updated;
+                }
+              );
+
+              setMessage(
+                `${pendingSwapExercise.name} alleen voor deze training gekozen ✓`
+              );
+
+              setSwapChoiceOpen(
+                false
+              );
+
+              setSwapExerciseId(
+                null
+              );
+
+              setPendingSwapExercise(
+                null
+              );
+            }}
+            className="w-full rounded-2xl border border-zinc-700 bg-zinc-800 p-4 text-left hover:bg-zinc-700"
+          >
+            <p className="font-bold">
+              Alleen deze training
+            </p>
+
+            <p className="mt-1 text-sm text-zinc-400">
+              Volgende keer staat de originele oefening weer in het schema.
+            </p>
+          </button>
+
+
+          <button
+            type="button"
+            onClick={() => {
+              const oldExercise =
+                workout.exercises.find(
+                  (exercise) =>
+                    exercise.id ===
+                    swapExerciseId
+                );
+
+              if (!oldExercise) {
+                return;
+              }
+
+              setWorkout(
+                (currentWorkout) => {
+                  const updatedWorkout:
+                    WorkoutPlan = {
+                      ...currentWorkout,
+
+                      exercises:
+                        currentWorkout.exercises.map(
+                          (exercise) =>
+                            exercise.id ===
+                            swapExerciseId
+                              ? pendingSwapExercise
+                              : exercise
+                        ),
+                    };
+
+                  localStorage.setItem(
+                    storageKey,
+
+                    JSON.stringify(
+                      updatedWorkout
+                    )
+                  );
+
+                  return updatedWorkout;
+                }
+              );
+
+              setCurrentSets(
+                (previous) => {
+                  const updated = {
+                    ...previous,
+                  };
+
+                  delete updated[
+                    oldExercise.id
+                  ];
+
+                  return updated;
+                }
+              );
+
+              setCurrentSessionIds(
+                (previous) => {
+                  const updated = {
+                    ...previous,
+                  };
+
+                  delete updated[
+                    oldExercise.id
+                  ];
+
+                  return updated;
+                }
+              );
+
+              setCoachSetsByExercise(
+                (previous) => {
+                  const updated = {
+                    ...previous,
+                  };
+
+                  delete updated[
+                    oldExercise.id
+                  ];
+
+                  return updated;
+                }
+              );
+
+              setCoachMessages(
+                (previous) => {
+                  const updated = {
+                    ...previous,
+                  };
+
+                  delete updated[
+                    oldExercise.id
+                  ];
+
+                  return updated;
+                }
+              );
+
+              setMessage(
+                `${oldExercise.name} definitief vervangen door ${pendingSwapExercise.name} ✓`
+              );
+
+              setSwapChoiceOpen(
+                false
+              );
+
+              setSwapExerciseId(
+                null
+              );
+
+              setPendingSwapExercise(
+                null
+              );
+            }}
+            className="w-full rounded-2xl border border-green-800 bg-green-950/40 p-4 text-left hover:bg-green-950"
+          >
+            <p className="font-bold text-green-400">
+              Definitief vervangen
+            </p>
+
+            <p className="mt-1 text-sm text-zinc-400">
+              De nieuwe oefening blijft voortaan in dit schema staan.
+            </p>
+          </button>
+
+
+          <button
+            type="button"
+            onClick={() => {
+              setSwapChoiceOpen(
+                false
+              );
+
+              setPendingSwapExercise(
+                null
+              );
+            }}
+            className="w-full p-3 text-zinc-400 hover:text-white"
+          >
+            Annuleren
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  )}
       {editingExercise !==
         null && (
         <EditExerciseModal

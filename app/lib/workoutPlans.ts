@@ -266,3 +266,461 @@ export const pullBWorkout: WorkoutPlan = {
     },
   ],
 };  
+export const upperAWorkout: WorkoutPlan = {
+  id: "upper-a",
+
+  name: "Upper A",
+
+  exercises: [
+    {
+      id: "machine-bench-press",
+      name: "Machine Bench Press",
+      muscle: "Borst",
+      targetSets: 4,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "lat-pulldown",
+      name: "Lat Pulldown",
+      muscle: "Rug",
+      targetSets: 4,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "incline-dumbbell-press",
+      name: "Incline Dumbbell Press",
+      muscle: "Borst",
+      targetSets: 3,
+      weightStep: 2,
+      history: [],
+    },
+
+    {
+      id: "seated-cable-row",
+      name: "Seated Cable Row",
+      muscle: "Rug",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "lateral-raise",
+      name: "Lateral Raise",
+      muscle: "Schouders",
+      targetSets: 3,
+      weightStep: 1,
+      history: [],
+    },
+
+    {
+      id: "triceps-pushdown",
+      name: "Triceps Pushdown",
+      muscle: "Triceps",
+      targetSets: 3,
+      weightStep: 2,
+      history: [],
+    },
+
+    {
+      id: "biceps-curl",
+      name: "Biceps Curl",
+      muscle: "Biceps",
+      targetSets: 3,
+      weightStep: 2,
+      history: [],
+    },
+  ],
+};
+export const lowerAWorkout: WorkoutPlan = {
+  id: "lower-a",
+
+  name: "Lower A",
+
+  exercises: [
+    {
+      id: "leg-press",
+      name: "Leg Press",
+      muscle: "Quadriceps / Billen",
+      targetSets: 4,
+      weightStep: 5,
+      history: [],
+    },
+
+    {
+      id: "romanian-deadlift",
+      name: "Romanian Deadlift",
+      muscle: "Hamstrings / Billen",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "leg-extension",
+      name: "Leg Extension",
+      muscle: "Quadriceps",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "seated-leg-curl",
+      name: "Seated Leg Curl",
+      muscle: "Hamstrings",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "standing-calf-raise",
+      name: "Standing Calf Raise",
+      muscle: "Kuiten",
+      targetSets: 4,
+      weightStep: 5,
+      history: [],
+    },
+  ],
+};
+export const upperBWorkout: WorkoutPlan = {
+  id: "upper-b",
+
+  name: "Upper B",
+
+  exercises: [
+    {
+      id: "incline-machine-press",
+      name: "Incline Machine Press",
+      muscle: "Borst",
+      targetSets: 4,
+      weightStep: 2,
+      history: [],
+    },
+
+    {
+      id: "neutral-grip-lat-pulldown",
+      name: "Neutral Grip Lat Pulldown",
+      muscle: "Rug",
+      targetSets: 4,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "dumbbell-bench-press",
+      name: "Dumbbell Bench Press",
+      muscle: "Borst",
+      targetSets: 3,
+      weightStep: 2,
+      history: [],
+    },
+
+    {
+      id: "chest-supported-tbar-row",
+      name: "Chest Supported T-Bar Row",
+      muscle: "Rug",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "cable-lateral-raise",
+      name: "Cable Lateral Raise",
+      muscle: "Schouders",
+      targetSets: 3,
+      weightStep: 1,
+      history: [],
+    },
+
+    {
+      id: "overhead-triceps-extension",
+      name: "Overhead Triceps Extension",
+      muscle: "Triceps",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "hammer-curl",
+      name: "Hammer Curl",
+      muscle: "Biceps / Onderarmen",
+      targetSets: 3,
+      weightStep: 2,
+      history: [],
+    },
+  ],
+};
+export const lowerBWorkout: WorkoutPlan = {
+  id: "lower-b",
+
+  name: "Lower B",
+
+  exercises: [
+    {
+      id: "hack-squat",
+      name: "Hack Squat",
+      muscle: "Quadriceps / Billen",
+      targetSets: 4,
+      weightStep: 5,
+      history: [],
+    },
+
+    {
+      id: "lying-leg-curl",
+      name: "Lying Leg Curl",
+      muscle: "Hamstrings",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "bulgarian-split-squat",
+      name: "Bulgarian Split Squat",
+      muscle: "Quadriceps / Billen",
+      targetSets: 3,
+      weightStep: 2,
+      history: [],
+    },
+
+    {
+      id: "hip-thrust",
+      name: "Hip Thrust",
+      muscle: "Billen",
+      targetSets: 3,
+      weightStep: 5,
+      history: [],
+    },
+
+    {
+      id: "seated-calf-raise",
+      name: "Seated Calf Raise",
+      muscle: "Kuiten",
+      targetSets: 4,
+      weightStep: 5,
+      history: [],
+    },
+  ],
+};
+export const fullBodyAWorkout: WorkoutPlan = {
+  id: "full-body-a",
+
+  name: "Full Body A",
+
+  exercises: [
+    {
+      id: "leg-press",
+      name: "Leg Press",
+      muscle: "Quadriceps / Billen",
+      targetSets: 3,
+      weightStep: 5,
+      history: [],
+    },
+
+    {
+      id: "machine-bench-press",
+      name: "Machine Bench Press",
+      muscle: "Borst",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "lat-pulldown",
+      name: "Lat Pulldown",
+      muscle: "Rug",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "seated-leg-curl",
+      name: "Seated Leg Curl",
+      muscle: "Hamstrings",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "lateral-raise",
+      name: "Lateral Raise",
+      muscle: "Schouders",
+      targetSets: 3,
+      weightStep: 1,
+      history: [],
+    },
+
+    {
+      id: "triceps-pushdown",
+      name: "Triceps Pushdown",
+      muscle: "Triceps",
+      targetSets: 2,
+      weightStep: 2,
+      history: [],
+    },
+
+    {
+      id: "biceps-curl",
+      name: "Biceps Curl",
+      muscle: "Biceps",
+      targetSets: 2,
+      weightStep: 2,
+      history: [],
+    },
+  ],
+};
+
+
+export const fullBodyBWorkout: WorkoutPlan = {
+  id: "full-body-b",
+
+  name: "Full Body B",
+
+  exercises: [
+    {
+      id: "romanian-deadlift",
+      name: "Romanian Deadlift",
+      muscle: "Hamstrings / Billen",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "incline-machine-press",
+      name: "Incline Machine Press",
+      muscle: "Borst",
+      targetSets: 3,
+      weightStep: 2,
+      history: [],
+    },
+
+    {
+      id: "seated-cable-row",
+      name: "Seated Cable Row",
+      muscle: "Rug",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "leg-extension",
+      name: "Leg Extension",
+      muscle: "Quadriceps",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "machine-shoulder-press",
+      name: "Machine Shoulder Press",
+      muscle: "Schouders",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "overhead-triceps-extension",
+      name: "Overhead Triceps Extension",
+      muscle: "Triceps",
+      targetSets: 2,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "hammer-curl",
+      name: "Hammer Curl",
+      muscle: "Biceps / Onderarmen",
+      targetSets: 2,
+      weightStep: 2,
+      history: [],
+    },
+  ],
+};
+
+
+export const fullBodyCWorkout: WorkoutPlan = {
+  id: "full-body-c",
+
+  name: "Full Body C",
+
+  exercises: [
+    {
+      id: "hack-squat",
+      name: "Hack Squat",
+      muscle: "Quadriceps / Billen",
+      targetSets: 3,
+      weightStep: 5,
+      history: [],
+    },
+
+    {
+      id: "dumbbell-bench-press",
+      name: "Dumbbell Bench Press",
+      muscle: "Borst",
+      targetSets: 3,
+      weightStep: 2,
+      history: [],
+    },
+
+    {
+      id: "neutral-grip-lat-pulldown",
+      name: "Neutral Grip Lat Pulldown",
+      muscle: "Rug",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "lying-leg-curl",
+      name: "Lying Leg Curl",
+      muscle: "Hamstrings",
+      targetSets: 3,
+      weightStep: 2.5,
+      history: [],
+    },
+
+    {
+      id: "cable-lateral-raise",
+      name: "Cable Lateral Raise",
+      muscle: "Schouders",
+      targetSets: 3,
+      weightStep: 1,
+      history: [],
+    },
+
+    {
+      id: "triceps-pushdown",
+      name: "Triceps Pushdown",
+      muscle: "Triceps",
+      targetSets: 2,
+      weightStep: 2,
+      history: [],
+    },
+
+    {
+      id: "hammer-curl",
+      name: "Hammer Curl",
+      muscle: "Biceps / Onderarmen",
+      targetSets: 2,
+      weightStep: 2,
+      history: [],
+    },
+  ],
+};

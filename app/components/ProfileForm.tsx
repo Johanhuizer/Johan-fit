@@ -11,16 +11,23 @@ export default function ProfileForm({ onSave }: Props) {
   const [name, setName] = useState("");
   const [weight, setWeight] = useState("");
   const [goal, setGoal] = useState("Meer spiermassa");
+  const [trainingSplit, setTrainingSplit] =
+  useState("upper-lower");
 
   function handleSave() {
-    if (!name.trim()) return;
+  if (!name.trim()) return;
 
-    saveUser(name);
-    saveWeight(weight);
-    saveGoal(goal);
+  saveUser(name);
+  saveWeight(weight);
+  saveGoal(goal);
 
-    onSave(name);
-  }
+  localStorage.setItem(
+    "forgefit-training-split",
+    trainingSplit
+  );
+
+  onSave(name);
+}
 
   return (
     <div className="max-w-md mx-auto mt-20 bg-zinc-900 p-6 rounded-2xl">
@@ -57,7 +64,29 @@ export default function ProfileForm({ onSave }: Props) {
         <option>Afvallen</option>
         <option>Sterker worden</option>
       </select>
+<label className="text-zinc-300">
+  Trainingsschema
+</label>
 
+<select
+  className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700 mb-6"
+  value={trainingSplit}
+  onChange={(e) =>
+    setTrainingSplit(e.target.value)
+  }
+>
+  <option value="upper-lower">
+    Upper / Lower
+  </option>
+
+  <option value="ppl">
+    Push / Pull / Legs
+  </option>
+
+  <option value="full-body">
+    Full Body
+  </option>
+</select>
       <button
         onClick={handleSave}
         className="w-full bg-green-600 hover:bg-green-700 p-3 rounded-lg font-bold"
